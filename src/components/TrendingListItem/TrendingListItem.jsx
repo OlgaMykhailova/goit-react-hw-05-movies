@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const TrendingListItem = ({id, title}) => {
-    return <NavLink to={`${id}`}>{title}</NavLink>
+export const TrendingListItem = ({id, title, state}) => {
+    
+   
+    return <Link to={`movies/${id}`} state={state}>{title}</Link>
 };

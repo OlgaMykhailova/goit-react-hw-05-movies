@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -7,7 +7,8 @@ import { TrendingList } from 'components/TrendingList/TrendingList';
 
 export const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
-
+  const location = useLocation();
+  
   useEffect(() => {
     loadTrendingMovies();
   }, []);
@@ -32,8 +33,8 @@ export const Home = () => {
   return (
     <>
       <h1>Trending Today</h1>
-      <TrendingList trendingFilms={trendingFilms} />
-      <NavLink to="/movies/movieId">MovieDetails</NavLink>
+      <TrendingList trendingFilms={trendingFilms} state={{ from: location }} />
+      <NavLink to="/movies/movieId" >MovieDetails</NavLink>
     </>
   );
 };

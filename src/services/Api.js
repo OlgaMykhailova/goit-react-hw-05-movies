@@ -8,8 +8,6 @@ const fetchMovies = async (pathName = '', queryString = '') => {
     const response = await axios.get(
       `${pathName}?api_key=${API_KEY}&${queryString}`
     );
-    console.log(response.data);
-    console.log(response.data.results);
     return response.data;
   } catch (error) {
     new Error('Not Found');
@@ -32,7 +30,7 @@ export const getMovieDetails = movieId => {
   return fetchMovies(pathName);
 };
 
-export const getMovieCredits = movieId => {
+export const getMovieCast = movieId => {
   const pathName = `movie/${movieId}/credits`;
   return fetchMovies(pathName);
 };
