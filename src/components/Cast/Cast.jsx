@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getMovieCast } from '../../services/Api';
+import { List, Item, CardThumb, Text, Image } from './Cast.styled';
 
 export const Cast = () => {
   const [actorsList, setActorsList] = useState([]);
@@ -33,16 +34,24 @@ export const Cast = () => {
   };
 
   return (
-    <ul>
+    <List>
       {actorsList.map(({ character, name, profile_path }) => (
-        <li key={character}>
-            <img src={
-            `https://image.tmdb.org/t/p/w500${profile_path}`
-          } alt={name} width='100px'></img>
-            <p>{name}</p>
-            <p>Character: {character}</p>
-        </li>
+        <Item key={character}>
+          <Image
+            src={
+              profile_path
+                ? `https://image.tmdb.org/t/p/w500${profile_path}`
+                : 'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png'
+            }
+            alt={name}
+            width="300"
+          ></Image>
+          <CardThumb>
+            <Text>{name}</Text>
+            <Text>Character: {character}</Text>
+          </CardThumb>
+        </Item>
       ))}
-    </ul>
+    </List>
   );
 };

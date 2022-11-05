@@ -2,11 +2,13 @@ import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
+import { RiReplyFill } from "react-icons/ri";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {
   MovieInformation,
   MovieDecription,
   LinkStyled,
+  AddInformation
 } from './MovieDetails.styled';
 
 import { getMovieDetails } from '../services/Api';
@@ -40,7 +42,7 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <LinkStyled to={location.state?.from ?? '/'}>Go back</LinkStyled>
+      <LinkStyled to={location.state?.from ?? '/'}><RiReplyFill/> Go back</LinkStyled>
       <MovieInformation>
         <img
           src={
@@ -60,11 +62,11 @@ export const MovieDetails = () => {
           <p>{genres?.map(genre => genre.name).join(', ')}</p>
         </MovieDecription>
       </MovieInformation>
-      <div>
+      <AddInformation>
         <h3>Additional information</h3>
         <LinkStyled to='cast'>Cast</LinkStyled>
         <LinkStyled to='reviews'>Reviews</LinkStyled>
-      </div>
+      </AddInformation>
       <Outlet />
     </div>
   );

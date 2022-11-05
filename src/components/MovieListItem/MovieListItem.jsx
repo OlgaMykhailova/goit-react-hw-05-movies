@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+
+import { LinkStyled } from './MovieListItem.styled';
 
 export const MovieListItem = ({ id, title, state }) => {
   return (
     <li>
-      <Link to={`/movies/${id}`} state={state}>
+      <LinkStyled to={`/movies/${id}`} state={state}>
         {title}
-      </Link>
+      </LinkStyled>
     </li>
   );
 };
