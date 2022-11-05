@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import { getTrending } from 'services/Api';
-import { TrendingList } from 'components/TrendingList/TrendingList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
 
 export const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
@@ -33,7 +33,7 @@ export const Home = () => {
   return (
     <>
       <h1>Trending Today</h1>
-      <TrendingList trendingFilms={trendingFilms} state={{ from: location }} />
+      <MoviesList filmsList={trendingFilms} state={{ from: location }} />
     </>
   );
 };

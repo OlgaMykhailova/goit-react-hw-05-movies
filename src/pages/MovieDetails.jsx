@@ -3,7 +3,11 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { MovieInformation, MovieDecription, LinkBack } from './MovieDetails.styled'
+import {
+  MovieInformation,
+  MovieDecription,
+  LinkStyled,
+} from './MovieDetails.styled';
 
 import { getMovieDetails } from '../services/Api';
 
@@ -11,7 +15,7 @@ export const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState({});
   const location = useLocation();
-  console.log(location)
+  console.log(location);
 
   useEffect(() => {
     loadMovieDetails(movieId);
@@ -36,12 +40,11 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <LinkBack to={location.state.from ?? '/'}>Go back</LinkBack>
+      <LinkStyled to={location.state?.from ?? '/'}>Go back</LinkStyled>
       <MovieInformation>
         <img
           src={
-            `https://image.tmdb.org/t/p/w500${poster_path}` ??
-            'https://wipfilms.net/wp-content/data/posters/tt0338683.jpg'
+            `https://image.tmdb.org/t/p/w500${poster_path}`
           }
           alt={title}
           width="320"
@@ -57,6 +60,11 @@ export const MovieDetails = () => {
           <p>{genres?.map(genre => genre.name).join(', ')}</p>
         </MovieDecription>
       </MovieInformation>
+      <div>
+        <h3>Additional information</h3>
+        <LinkStyled to='cast'>Cast</LinkStyled>
+        <LinkStyled to='reviews'>Reviews</LinkStyled>
+      </div>
       <Outlet />
     </div>
   );

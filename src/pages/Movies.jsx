@@ -1,21 +1,29 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getMovieSearch } from '../services/Api';
-import { TrendingList } from 'components/TrendingList/TrendingList';
+import { MoviesList } from 'components/MoviesList/MoviesList';
+import { SearchBar } from '../components/SearchBar/SearchBar';
+import { useEffect } from 'react';
 
 export const Movies = () => {
-  const [inputValue, setInputValue] = useState('');
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('query') ?? '';
   const location = useLocation();
 
-  const onSubmit = searchQuery => {
+  const updateQueryString = query => {
+    setSearchedMovies([]);
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
+
+  useEffect(() => {
     if (searchQuery.trim().length === 0) {
-      Notify.warning('Please enter a word for search');
       return;
     }
     loadSearchedMovies(searchQuery);
-  };
+  }, [searchQuery]);
 
   const loadSearchedMovies = async searchQuery => {
     try {
@@ -29,6 +37,7 @@ export const Movies = () => {
         Notify.failure(
           'Sorry, there are no information by your query. Try another search.'
         );
+        setSearchedMovies([]);
         return;
       }
       setSearchedMovies(searchedResults);
@@ -37,26 +46,10 @@ export const Movies = () => {
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    onSubmit(inputValue);
-    setInputValue('');
-  };
-
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search movies"
-          value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
-        ></input>
-        <button type="submit">Search</button>
-      </form>
-      <TrendingList trendingFilms={searchedMovies} state={{ from: location }} />
+      <SearchBar onChange={updateQueryString} />
+      <MoviesList filmsList={searchedMovies} state={{ from: location }} />
     </>
   );
 };
