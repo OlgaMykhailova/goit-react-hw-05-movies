@@ -4,11 +4,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getMovieCast } from '../../services/Api';
 import { List, Item, CardThumb, Text, Image } from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
   const [actorsList, setActorsList] = useState([]);
   const { movieId } = useParams();
-  console.log(actorsList);
-
+  
   useEffect(() => {
     loadCast(movieId);
   }, [movieId]);
@@ -16,7 +15,7 @@ export const Cast = () => {
   const loadCast = async movieId => {
     try {
       const responseData = await getMovieCast(movieId);
-      console.log(responseData.cast);
+      
       const castList = responseData.cast.map(
         ({ character, name, profile_path }) => {
           const castItem = { character, name, profile_path };
@@ -36,7 +35,7 @@ export const Cast = () => {
   return (
     <List>
       {actorsList.map(({ character, name, profile_path }) => (
-        <Item key={character}>
+        <Item key={name}>
           <Image
             src={
               profile_path
@@ -55,3 +54,5 @@ export const Cast = () => {
     </List>
   );
 };
+
+export default Cast;

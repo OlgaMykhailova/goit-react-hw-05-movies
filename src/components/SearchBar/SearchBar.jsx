@@ -1,4 +1,4 @@
-
+import { PropTypes } from 'prop-types';
 export const SearchBar = ({ onChange }) => {
   
   const handleSubmit = e => {
@@ -15,3 +15,7 @@ export const SearchBar = ({ onChange }) => {
     </form>
   );
 };
+
+SearchBar.propTypes = {
+  onChange: PropTypes.func,
+ };

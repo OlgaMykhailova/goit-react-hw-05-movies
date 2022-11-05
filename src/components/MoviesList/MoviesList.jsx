@@ -1,3 +1,4 @@
+import { PropTypes } from 'prop-types';
 import { MovieListItem } from "components/MovieListItem/MovieListItem";
 import { List } from './MoviesList.styled';
 
@@ -9,4 +10,9 @@ export const MoviesList = ({ filmsList, state }) => {
       ))}
     </List>
   );
+};
+
+MoviesList.propTypes = {
+  filmsList: PropTypes.array,
+  state: PropTypes.object,
 };

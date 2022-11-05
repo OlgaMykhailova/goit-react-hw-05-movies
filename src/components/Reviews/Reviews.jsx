@@ -4,10 +4,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getMovieReviews } from '../../services/Api';
 import { List, Item, TextAuthor } from './Reviews.styled';
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviewsList, setReviewsList] = useState([]);
   const { movieId } = useParams();
-  console.log(reviewsList);
+  
 
   useEffect(() => {
     loadReviews(movieId);
@@ -16,7 +16,7 @@ export const Reviews = () => {
   const loadReviews = async movieId => {
     try {
       const responseData = await getMovieReviews(movieId);
-      console.log(responseData);
+      
       const reviewsList = responseData.results.map(({ author, content }) => {
         const castItem = { author, content };
         return castItem;
@@ -48,3 +48,5 @@ export const Reviews = () => {
     </>
   );
 };
+
+export default Reviews;

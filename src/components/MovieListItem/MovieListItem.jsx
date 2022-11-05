@@ -1,4 +1,4 @@
-
+import { PropTypes } from 'prop-types';
 import { LinkStyled } from './MovieListItem.styled';
 
 export const MovieListItem = ({ id, title, state }) => {
@@ -9,4 +9,10 @@ export const MovieListItem = ({ id, title, state }) => {
       </LinkStyled>
     </li>
   );
+};
+
+MovieListItem.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  state: PropTypes.object,
 };

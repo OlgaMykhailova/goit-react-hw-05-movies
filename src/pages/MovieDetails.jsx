@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
-import { RiReplyFill } from "react-icons/ri";
+import { RiReplyFill } from 'react-icons/ri';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { Loader } from '../components/Loader/Loader';
 import {
   MovieInformation,
   MovieDecription,
   LinkStyled,
-  AddInformation
+  AddInformation,
 } from './MovieDetails.styled';
 
 import { getMovieDetails } from '../services/Api';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState({});
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     loadMovieDetails(movieId);
@@ -26,7 +26,7 @@ export const MovieDetails = () => {
   const loadMovieDetails = async movieId => {
     try {
       const movie = await getMovieDetails(movieId);
-      console.log(movie);
+
       if (!movie) {
         Notify.failure('Sorry, there are no details for this movie.');
         return;
@@ -42,11 +42,15 @@ export const MovieDetails = () => {
 
   return (
     <div>
-      <LinkStyled to={location.state?.from ?? '/'}><RiReplyFill/> Go back</LinkStyled>
+      <LinkStyled to={location.state?.from ?? '/'}>
+        <RiReplyFill /> Go back
+      </LinkStyled>
       <MovieInformation>
         <img
           src={
-            `https://image.tmdb.org/t/p/w500${poster_path}`
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : 'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png'
           }
           alt={title}
           width="320"
@@ -64,10 +68,14 @@ export const MovieDetails = () => {
       </MovieInformation>
       <AddInformation>
         <h3>Additional information</h3>
-        <LinkStyled to='cast'>Cast</LinkStyled>
-        <LinkStyled to='reviews'>Reviews</LinkStyled>
+        <LinkStyled to="cast">Cast</LinkStyled>
+        <LinkStyled to="reviews">Reviews</LinkStyled>
       </AddInformation>
-      <Outlet />
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
+
+export default MovieDetails;

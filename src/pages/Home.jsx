@@ -5,7 +5,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getTrending } from 'services/Api';
 import { MoviesList } from 'components/MoviesList/MoviesList';
 
-export const Home = () => {
+ const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
   const location = useLocation();
 
@@ -37,3 +37,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;
