@@ -68,8 +68,8 @@ const MovieDetails = () => {
       </MovieInformation>
       <AddInformation>
         <h3>Additional information</h3>
-        <LinkStyled to="cast">Cast</LinkStyled>
-        <LinkStyled to="reviews">Reviews</LinkStyled>
+      <LinkStyled to="cast" state={location.state}>Cast</LinkStyled>
+        <LinkStyled to="reviews" state={location.state}>Reviews</LinkStyled>
       </AddInformation>
       <Suspense fallback={<Loader />}>
         <Outlet />

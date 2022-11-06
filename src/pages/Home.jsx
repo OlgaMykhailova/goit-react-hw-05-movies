@@ -33,7 +33,7 @@ import { MoviesList } from 'components/MoviesList/MoviesList';
   return (
     <>
       <h1>Trending Today</h1>
-      <MoviesList filmsList={trendingFilms} state={{ from: location }} />
+      <MoviesList filmsList={trendingFilms} state={{from: location}} />
     </>
   );
 };
