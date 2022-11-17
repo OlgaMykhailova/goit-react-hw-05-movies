@@ -13,12 +13,12 @@ const Movies = () => {
   const location = useLocation();
 
   const updateQueryString = query => {
-    setSearchedMovies([]);
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
   };
 
   useEffect(() => {
+    setSearchedMovies([]);
     if (searchQuery.trim().length === 0) {
       return;
     }
